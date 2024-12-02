@@ -1,0 +1,86 @@
+<div class=" main d-flex flex-column justify-content-center align-items-center ">
+    <h1 class="fw-bolder">EMPLOYEE DETAILS</h1>
+    <div class=" w-50  p-3 d-flex flex-column  justify-content-center align-items-center">
+        
+        <button type="button" class="btn btn-primary m-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
+                ADD NEW EMPLOYEE
+          </button>
+        <div >
+                <table class="table shadow p-2" style="width: 50rem;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Contact Number</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (emp of employeeList; track $index) {
+                        <tr>
+                            <td>{{emp.ename}}</td>
+                            <td>{{emp.contactno}}</td>
+                            <td>{{emp.email}}</td>
+                            <td>{{emp.address}}</td>
+                        </tr>
+                    }
+
+                    </tbody>
+                </table>
+           
+        </div>
+    </div>
+</div>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">ADD EMPLOYEE PAGE </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <div style="background-color: rgb(255,255,255,0.7); " class="col p-5 mt-3 rounded-4 ">
+            <form [formGroup]="EmployeeForm">
+                <div class="mb-3">
+                    <label for="exampleInputename" class="form-label">EMPLOYEE NAME :</label>
+                    <input name="ename" formControlName="ename" type="text" class="form-control" id="exampleInputename">
+                    @if(EmployeeForm.get('ename')?.touched && EmployeeForm.get('ename')?.errors ){
+                    <div class="text-danger fw-bolder">*Invalid Name</div>
+                    }
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputcontact" class="form-label">CONTACT NUMBER</label>
+                    <input name="contactno" formControlName="contactno" type="text" class="form-control"
+                        id="exampleInputcontactno">
+                    @if(EmployeeForm.get('contactno')?.touched && EmployeeForm.get('contactno')?.errors ){
+                    <div class="text-danger fw-bolder">*Invalid Contact Number</div>
+                    }
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputemail" class="form-label">EMAIL ID</label>
+                    <input name="email" formControlName="email" type="email" class="form-control"
+                        id="exampleInputemail">
+                    @if(EmployeeForm.get('email')?.touched && EmployeeForm.get('email')?.errors ){
+                    <div class="text-danger fw-bolder">*Invalid Email</div>
+                    }
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputeaddress" class="form-label">ADDRESS</label>
+                    <input name="address" formControlName="address" type="text" class="form-control"
+                        id="exampleInputaddress" aria-describedby="emailHelp">
+                    @if(EmployeeForm.get('address')?.touched && EmployeeForm.get('address')?.errors ){
+                    <div class="text-danger fw-bolder">*Invalid Address</div>
+                    }
+                </div>
+                <button (click)="addEmployee()" [disabled]="EmployeeForm.invalid" type="button" class="btn" style="background-color: white;" data-bs-dismiss="modal">SUBMIT</button>
+            </form>
+        </div> 
+        </div>
+        
+      </div>
+    </div>
+  </div>
